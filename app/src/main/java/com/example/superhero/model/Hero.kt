@@ -3,8 +3,8 @@ package com.example.superhero.model
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-data class SuperHero(
-    @StringRes val superHeroName: Int,
-    @StringRes val powers: Int,
-    @DrawableRes val imageResourceId: Int,
+data class Hero(
+    @StringRes val nameRes: Int,
+    @StringRes val descriptionRes: Int,
+    @DrawableRes val imageRes: Int,
 )
