@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.superhero.model.Hero
@@ -59,6 +61,26 @@ fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
         }
 
     }
+}
+
+@Composable
+fun HeroInformation(@StringRes heroName: Int, @StringRes heroDescription: Int, modifier: Modifier = Modifier) {
+    Column {
+        //Since heroName and heroDescription are on top of Surface their color defaults to onSurface
+        //heroName Composable
+        Text(
+            text = stringResource(heroName),
+            style = MaterialTheme.typography.h2,
+            modifier = modifier.padding(8.dp)
+        )
+        //heroDescription Composable
+        Text(
+            text = stringResource(heroDescription),
+            style = MaterialTheme.typography.body1
+        )
+
+    }
+
 }
 
 @Composable
