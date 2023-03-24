@@ -58,6 +58,9 @@ fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
         ) {
             //Other Composables go here
             /*TODO*/
+            HeroInformation(hero.nameRes,hero.descriptionRes )
+            HeroIcon(hero.imageRes)
+
         }
 
     }
