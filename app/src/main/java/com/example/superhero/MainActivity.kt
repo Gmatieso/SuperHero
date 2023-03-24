@@ -6,7 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -21,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.superhero.model.Hero
+import com.example.superhero.model.heroes
 import com.example.superhero.ui.theme.SuperHeroTheme
 
 class MainActivity : ComponentActivity() {
@@ -42,11 +46,20 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SuperHeroApp() {
-
+    SuperHeroList()
 }
 
 @Composable
-fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
+fun SuperHeroList( modifier: Modifier = Modifier) {
+    LazyColumn(modifier = Modifier.background(MaterialTheme.colors.background) ) {
+        items(heroes) {
+            HeroesItem(hero = it)
+        }
+    }
+}
+
+@Composable
+fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
     Card(
         elevation = 4.dp,
         modifier = modifier.padding(8.dp)
@@ -61,6 +74,7 @@ fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
             HeroInformation(hero.nameRes,hero.descriptionRes )
             Spacer(Modifier.weight(1f))
             HeroIcon(hero.imageRes)
+
 
         }
 
@@ -104,5 +118,6 @@ fun HeroIcon(@DrawableRes heroIcon: Int, modifier: Modifier = Modifier) {
 fun DefaultPreview() {
     SuperHeroTheme {
         SuperHeroApp()
+
     }
 }
