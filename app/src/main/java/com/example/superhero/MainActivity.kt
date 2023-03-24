@@ -59,6 +59,7 @@ fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
             //Other Composables go here
             /*TODO*/
             HeroInformation(hero.nameRes,hero.descriptionRes )
+            Spacer(Modifier.weight(1f))
             HeroIcon(hero.imageRes)
 
         }
