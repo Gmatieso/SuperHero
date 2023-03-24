@@ -3,16 +3,19 @@ package com.example.superhero
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.superhero.model.Hero
@@ -56,6 +59,18 @@ fun HerosItem(hero: Hero, modifier: Modifier = Modifier) {
         }
 
     }
+}
+
+@Composable
+fun HeroIcon(@DrawableRes heroIcon: Int, modifier: Modifier = Modifier) {
+    Image(
+        modifier = modifier
+            .size(64.dp)
+            .padding(8.dp)
+            .clip(RoundedCornerShape(50)),
+        contentScale = ContentScale.Crop,
+        painter = painterResource(heroIcon),
+        contentDescription = null )
 }
 
 @Preview(showBackground = true)
