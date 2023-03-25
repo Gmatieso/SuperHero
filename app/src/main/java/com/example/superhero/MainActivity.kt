@@ -1,5 +1,6 @@
 package com.example.superhero
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,10 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -50,22 +48,29 @@ fun SuperHeroApp() {
     SuperHeroList()
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SuperHeroList( modifier: Modifier = Modifier) {
-    LazyColumn(modifier = Modifier.background(MaterialTheme.colors.background) ) {
-        items(heroes) {
-            HeroesItem(hero = it)
+fun SuperHeroList() {
+    Scaffold(
+        topBar = {
+            SuperHeroTopAppBar()
+        }
+    ) {
+        LazyColumn(modifier = Modifier.background(MaterialTheme.colors.background) ) {
+            items(heroes) {
+                HeroesItem(hero = it)
+            }
         }
     }
 }
 
 @Composable
 fun SuperHeroTopAppBar(modifier: Modifier = Modifier) {
-    Row(
+    Box(
         modifier = modifier
             .fillMaxWidth()
-            .background(color = MaterialTheme.colors.primary),
-        verticalAlignment = Alignment.CenterVertically
+            .size(56.dp),
+        contentAlignment = Alignment.Center
     ) {
         Text(
             text = stringResource(R.string.app_name),
@@ -84,7 +89,8 @@ fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp)
+                .padding(16.dp)
+                .sizeIn(minHeight = 72.dp)
         ) {
             //Other Composables go here
             /*TODO*/
@@ -100,7 +106,7 @@ fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
 
 @Composable
 fun HeroInformation(@StringRes heroName: Int, @StringRes heroDescription: Int, modifier: Modifier = Modifier) {
-    Column {
+    Column( ) {
         //Since heroName and heroDescription are on top of Surface their color defaults to onSurface
         //heroName Composable
         Text(
@@ -120,14 +126,19 @@ fun HeroInformation(@StringRes heroName: Int, @StringRes heroDescription: Int, m
 
 @Composable
 fun HeroIcon(@DrawableRes heroIcon: Int, modifier: Modifier = Modifier) {
-    Image(
+    Box(
         modifier = modifier
-            .size(64.dp)
-            .padding(8.dp)
+            .size(72.dp)
             .clip(RoundedCornerShape(8.dp)),
-        contentScale = ContentScale.Crop,
-        painter = painterResource(heroIcon),
-        contentDescription = null )
+    ) {
+        Image(
+            contentScale = ContentScale.FillWidth,
+            painter = painterResource(heroIcon),
+            contentDescription = null,
+            alignment = Alignment.TopCenter,
+        )
+    }
+
 }
 
 @Preview(showBackground = true)
