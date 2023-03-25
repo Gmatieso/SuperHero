@@ -10,7 +10,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -22,8 +22,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.superhero.data.HeroesRepository
 import com.example.superhero.model.Hero
-import com.example.superhero.model.heroes
 import com.example.superhero.ui.theme.SuperHeroTheme
 
 class MainActivity : ComponentActivity() {
@@ -45,21 +45,31 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun SuperHeroApp() {
-    SuperHeroList()
+    val heroes = HeroesRepository.heroes
+    SuperHeroList(heroes = heroes)
 }
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
-fun SuperHeroList() {
+fun SuperHeroList(
+    heroes: List<Hero>,
+    modifier: Modifier = Modifier
+) {
     Scaffold(
         topBar = {
             SuperHeroTopAppBar()
         }
     ) {
         LazyColumn(modifier = Modifier.background(MaterialTheme.colors.background) ) {
-            items(heroes) {
-                HeroesItem(hero = it)
+            itemsIndexed(heroes) {index,  item ->  
+                HeroesItem(
+                    hero = item,
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 8.dp))
             }
+//            items(heroes) {
+//                HeroesItem(hero = it)
+//            }
         }
     }
 }
@@ -92,8 +102,6 @@ fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
                 .padding(16.dp)
                 .sizeIn(minHeight = 72.dp)
         ) {
-            //Other Composables go here
-            /*TODO*/
             HeroInformation(hero.nameRes,hero.descriptionRes )
             Spacer(modifier = Modifier.width(16.dp))
             HeroIcon(hero.imageRes)
