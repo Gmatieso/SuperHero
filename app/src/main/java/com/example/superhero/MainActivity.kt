@@ -1,6 +1,7 @@
 package com.example.superhero
 
 import android.annotation.SuppressLint
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -94,7 +95,7 @@ fun SuperHeroTopAppBar(modifier: Modifier = Modifier) {
 fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
     Card(
         elevation = 2.dp,
-        modifier = modifier.padding(16.dp)
+        modifier = modifier,
     ) {
         Row(
             modifier = Modifier
@@ -103,7 +104,7 @@ fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
                 .sizeIn(minHeight = 72.dp)
         ) {
             HeroInformation(hero.nameRes,hero.descriptionRes )
-            Spacer(modifier = Modifier.width(16.dp))
+            Spacer(modifier = Modifier.weight(1f))
             HeroIcon(hero.imageRes)
 
 
@@ -114,7 +115,7 @@ fun HeroesItem(hero: Hero, modifier: Modifier = Modifier) {
 
 @Composable
 fun HeroInformation(@StringRes heroName: Int, @StringRes heroDescription: Int, modifier: Modifier = Modifier) {
-    Column( ) {
+    Column() {
         //Since heroName and heroDescription are on top of Surface their color defaults to onSurface
         //heroName Composable
         Text(
@@ -135,7 +136,7 @@ fun HeroInformation(@StringRes heroName: Int, @StringRes heroDescription: Int, m
 @Composable
 fun HeroIcon(@DrawableRes heroIcon: Int, modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
+        modifier = Modifier
             .size(72.dp)
             .clip(RoundedCornerShape(8.dp)),
     ) {
@@ -150,6 +151,7 @@ fun HeroIcon(@DrawableRes heroIcon: Int, modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true)
+@Preview("Dark Theme", uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreview() {
     SuperHeroTheme {
